@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>movies</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    
+    <p>Welcome to movies   </p>
+    <% if (movie){for(let i in movie) { %>
+      <h2>
+          <%= `${movie[i].title[0].toUpperCase()}${movie[i].title.slice(1)}` %> 
+      </h2>
+      <p>Rating:<%= movie[i].rating %> </p>
+      <p>Synopsis:<%= movie[i].synopsis %> </p>
+      <p>Release Year:<%= movie[i].release %> </p>
+      <p>Genre:<%= movie[i].genre %> </p>
+      <p>Director:<%= movie[i].director %> </p>
+      <p>Box office:<%= movie[i].box %> </p>
+      <% }} %>
+
+  
+  </body>
+</html>
