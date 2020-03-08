@@ -14,6 +14,10 @@ const controllerFunc = require('./controller')
 
 
 // use controller function for postman
+
+router.get('/',(req,res)=>{
+    res.render('landing')
+})
 router.get('/movies',controllerFunc.getMovieFunc)
 router.post('/addmovie',controllerFunc.postNewMovie)
 router.put('/:title',controllerFunc.updateMovie)

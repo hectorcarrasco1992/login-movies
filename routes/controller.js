@@ -163,8 +163,8 @@ module.exports ={
         //get rid of session
         req.session.destroy()
         console.log(req.session)
-        req.logout
-        return res.redirect('/login')
+        req.logout()
+        return res.redirect('/users/login')
     },
 
     // loginFunc: passport.authenticate('local-login',{

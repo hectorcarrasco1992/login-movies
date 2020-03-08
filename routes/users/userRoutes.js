@@ -124,7 +124,7 @@ router.post('/register',controllerFunc.myValidation,controllerFunc.registerUserF
 router.post('/login',
   //authenticate using local login from passport file
   passport.authenticate('local-login',{
-    successRedirect:'/',
+    successRedirect:'/users',
     failureRedirect:'/fail',
     // failureFlash:true,
   })
