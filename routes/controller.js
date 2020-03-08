@@ -3,6 +3,7 @@ const Movie = require('./users/models/Movie')
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
 const User = require('../routes/users/models/Users')
+
 // const methodOverride = require('method-override')
 require('../lib/passport')
 module.exports ={
@@ -61,6 +62,7 @@ module.exports ={
     },
     
     updateMovie:(req,res)=>{
+        
         // find movie based on parameters
         Movie.findOne({title:req.query.title})
         .then((movie)=>{
@@ -80,7 +82,10 @@ module.exports ={
     },
 
     updateMovieRender: (req,res)=>{
-        res.render('updateMovie')
+        if(req.isAuthenticated()){
+
+            res.render('updateMovie')
+        }else res.redirect('/')
     },
 
     deleteMovie:(req,res)=>{
@@ -96,28 +101,39 @@ module.exports ={
     },
     
     getAllMoviesRender :(req,res)=>{
-       
+       if(req.isAuthenticated()){
 
-            Movie.find({})
-            .then(movie =>{
-                //return res.status(200).json(words)
-                console.log(movie)
-                
-                return res.render('success',{movie})
+           
+           Movie.find({})
+           .then(movie =>{
+               //return res.status(200).json(words)
+               console.log(movie)
+               
+               return res.render('success',{movie})
             })
+        }else res.redirect('/')
         
     },
 
     findMovieRender: (req,res)=>{
-        return res.render('findMovie',{movie:null})
+        if(req.isAuthenticated()){
+
+            return res.render('findMovie',{movie:null})
+        }
     },
     
     addMovieRender:(req, res, next)=> {
-        res.render('addMovie',{Movie:null});
+        if(req.isAuthenticated()){
+
+            res.render('addMovie',{Movie:null});
+        }else res.redirect('/')
     },
 
     findMovie: (req,res)=>{
-        return res.render('findMovie',{movie:null})
+        if(req.isAuthenticated()){
+
+            return res.render('findMovie',{movie:null})
+        }else res.redirect('/')
         },
 
     foundMovieFunc:(req,res)=>{
@@ -153,10 +169,13 @@ module.exports ={
     },
 
     getAllUsersFunc:(req,res)=>{
-        User.find({})
-        .then(users=>{
-        return res.status(200).json({message:'success',users})
-        }).catch((err)=>res.status(200).json({message:'server error',err}))
+        if(req.isAuthenticated()){
+
+            User.find({})
+            .then(users=>{
+                return res.status(200).json({message:'success',users})
+            }).catch((err)=>res.status(200).json({message:'server error',err}))
+        }
     },
 
     logOutFunc: (req,res)=>{
@@ -230,8 +249,10 @@ module.exports ={
     },
 
     indexRender: (req,res)=>{
-        
+        if(req.isAuthenticated()){
+
             res.render('index')
+        }else res.redirect('/')
         
     }
 }
